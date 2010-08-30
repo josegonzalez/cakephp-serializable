@@ -1,0 +1,23 @@
+h1. Serializable Plugin
+
+For those times when you really, REALLY want to store serialized data in your relational database.
+
+h2. Setup
+
+<pre><code><?php
+class Post extends AppModel {
+	var $name = 'Post';
+	var $actsAs = array(
+		'Serializable.Serializable' => array(
+			'tags',
+			'categories'
+		)
+	);
+}
+?></code></pre>
+
+Then any data on posted in those two model fields will be saved as serialized data. It will also be unserialized on the afterFind.
+
+h2. Caveats
+
+Since callbacks are not called on related model data, you will not get the benefits if you are saving or finding the Serializable model and it is not the primary model.
